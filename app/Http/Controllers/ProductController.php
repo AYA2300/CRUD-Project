@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateeProductRequest;
+use App\Http\Traits\FileStorageTrait;
 use App\Models\Products;
 
 use Illuminate\Support\Facades\DB;
@@ -13,6 +14,7 @@ use Illuminate\Support\Facades\Log;
 
 class ProductController extends Controller
 {
+    use FileStorageTrait;
     /**
      * Display a listing of the resource.
      */
@@ -52,7 +54,7 @@ class ProductController extends Controller
                 'price'=>$request->price,
                 'description'=>$request->description,
                 'quantity'=>$request->quantity,
-                'image'=>$request->file('image')->store('images'),
+                'image'=>$this->storeFile($request->image,'images')
 
 
             ]);
